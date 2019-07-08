@@ -1,0 +1,53 @@
+import os
+from time import sleep
+def a(start):
+    def inner():
+        print("*#"*50)
+        print("\t"*5+"*"*30)
+        print("\t"*6+"Welcome to Kodak Bank")
+        print("\t"*5+"*"*30)
+        print("\n")
+        start()
+        os.system("cls")
+		load()
+    return inner
+
+a
+@a
+def op():
+    global a
+    print("\t"*5+"Options")
+    print("\t"*5+"1.Banking")
+    print("\t"*5+"2.Loan")
+    print("\n")
+    print("*#"*50)
+    a=int(input())
+
+def load():
+    from time import sleep
+    print('Please Wait',end='')
+    for i in range(6):
+        sleep(0.5)
+        print(".",end='')
+
+def depos():
+    import pickle
+    accno=int(input("Enter accno"))
+    fp=open("deposit.db","rb+")
+    a=pickle.load(fp)
+    fp.close()
+    fp=open("deposit.db","wb")
+    amnt=int(input("Enter Amount"))
+    for acc,amt in a.items():
+        if acc==accno:
+            amt+=amnt
+            a[acc]=amt
+            print("Your current amount is",amt)
+            pickle.dump(a,fp)
+        else:
+            print("Account number not present")
+    fp.close()
+    sleep(2)
+    os.system("cls")
+op()
+depos()
